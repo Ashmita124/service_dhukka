@@ -27,7 +27,7 @@ class _UserBookingPageState extends State<UserBookingPage> {
         builder: (context) => AlertDialog(
           title: const Text('Booking Confirmed'),
           content: Text(
-            'Thank you, ${_nameController.text}!\nYour ${_selectedService} has been booked for ${_selectedTimeSlot}. We will contact you shortly at ${_phoneController.text}.',
+            'Thank you, ${_nameController.text}!\nYour $_selectedService has been booked for $_selectedTimeSlot. We will contact you shortly at ${_phoneController.text}.',
           ),
           actions: [
             TextButton(

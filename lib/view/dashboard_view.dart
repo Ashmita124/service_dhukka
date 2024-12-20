@@ -16,7 +16,7 @@ class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
 
   final List<Widget> lstBottomScreen = [
-    UserBookingPage(),
+    const UserBookingPage(),
     OffersPage(),
     ServiceHistoryPage(),
     NotificationsPage(),

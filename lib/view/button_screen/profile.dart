@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomerProfilePage extends StatelessWidget {
-  CustomerProfilePage({super.key});
+  const CustomerProfilePage({super.key});
 
   // Sample customer data
   final String customerName = 'Ashmita Biswakarma';

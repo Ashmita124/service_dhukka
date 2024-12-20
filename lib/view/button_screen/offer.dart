@@ -7,7 +7,7 @@ class OffersPage extends StatelessWidget {
   final List<Map<String, String>> offers = [
     {'title': '20% off on Car Wash', 'details': 'Valid until Dec 31, 2024'},
     {'title': 'Buy 1 Get 1 Free on Oil Change', 'details': 'Valid on weekends only'},
-    {'title': 'Free Tire Checkup', 'details': 'For all bookings above \Rs.100'},
+    {'title': 'Free Tire Checkup', 'details': 'For all bookings above Rs.100'},
   ];
 
   // Image paths in your assets folder
@@ -40,7 +40,7 @@ class OffersPage extends StatelessWidget {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Card(
                   color: Colors.lightBlue[50],
                   child: ListTile(
@@ -52,7 +52,7 @@ class OffersPage extends StatelessWidget {
                     subtitle: Text(offer['details']!),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
               ],
             );
           },
