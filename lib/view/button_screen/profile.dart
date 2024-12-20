@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class CustomerProfilePage extends StatelessWidget {
   const CustomerProfilePage({super.key});
 
-  // Sample customer data
   final String customerName = 'Ashmita Biswakarma';
   final String email = 'ashmita@gmail.com';
   final String phoneNumber = '9800000000';

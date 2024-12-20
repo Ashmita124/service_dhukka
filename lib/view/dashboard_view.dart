@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:service_dhukka/view/button_screen/booking.dart';
-import 'package:service_dhukka/view/button_screen/notification.dart';
 import 'package:service_dhukka/view/button_screen/offer.dart';
 import 'package:service_dhukka/view/button_screen/profile.dart';
 import 'package:service_dhukka/view/button_screen/service_history.dart';
@@ -19,8 +18,7 @@ class _DashboardState extends State<Dashboard> {
     const UserBookingPage(),
     OffersPage(),
     ServiceHistoryPage(),
-    NotificationsPage(),
-    CustomerProfilePage(),
+    const CustomerProfilePage(),
   ];
 
   @override
@@ -49,15 +47,11 @@ class _DashboardState extends State<Dashboard> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.car_repair),
-            label: 'Service',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            label: 'Services',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_outlined),
-            label: 'My Profile',
+            label: 'Profile',
           ),
         ],
       ),

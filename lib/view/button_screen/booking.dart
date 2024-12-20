@@ -15,7 +15,7 @@ class _UserBookingPageState extends State<UserBookingPage> {
   final _phoneController = TextEditingController();
 
   // Sample services and time slots
-  final List<String> _services = ['Car Wash', 'Oil Change', 'Tire Checkup', 'Brake Repair'];
+  final List<String> _services = ['Car Wash', 'Oil Change', 'Tire Checkup', 'Break Repair'];
   final List<String> _timeSlots = ['9:00 AM', '12:00 PM', '3:00 PM', '6:00 PM'];
 
   // Function to handle the booking

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class NotificationsPage extends StatelessWidget {
   NotificationsPage({super.key});
 
-  // Sample notifications data
   final List<Map<String, String>> notifications = [
     {
       'type': 'Reminder',

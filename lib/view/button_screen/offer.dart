@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:service_dhukka/view/button_screen/notification.dart';
 
 class OffersPage extends StatelessWidget {
   OffersPage({super.key});
@@ -12,9 +13,9 @@ class OffersPage extends StatelessWidget {
 
   // Image paths in your assets folder
   final List<String> imagePaths = [
-    'assets/images/car.jpg',  
-    'assets/images/car1.jpg',
-    'assets/images/car2.jpg',
+    'assets/images/car_wash.jpg',  
+    'assets/images/oil_change.jpg',
+    'assets/images/tire_checkup.jpg',
   ];
 
   @override
@@ -23,6 +24,19 @@ class OffersPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Offers and Discounts'),
         centerTitle: true,
+        actions: [
+          // Notification icon in the right corner
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              // Navigate to NotificationsPage when tapped
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsPage()), // Add your NotificationsPage here
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
