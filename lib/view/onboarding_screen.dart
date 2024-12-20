@@ -29,8 +29,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     },
   ];
 
-  void _goToHome() {
-    Navigator.pushReplacementNamed(context, '/login'); // Navigate to the home page
+  void _goToLogin() {
+    Navigator.pushReplacementNamed(context, '/login'); // Navigate to the login page
   }
 
   @override
@@ -50,7 +50,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             itemBuilder: (context, index) {
               return Image.asset(
                 _onboardingData[index]["image"]!,
-                fit: BoxFit.contain, // Ensures the image fits the screen without cropping
+                fit: BoxFit.contain, // Ensures the image fits the screen without zooming or cropping
                 width: double.infinity,
                 height: double.infinity,
               );
@@ -59,49 +59,54 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
           // Content Overlay
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Top Bar (Skip Button)
+              // Top Section: Skip Button
               Padding(
-                padding: const EdgeInsets.only(top: 50, right: 20),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: TextButton(
-                    onPressed: _goToHome,
-                    child: const Text(
-                      "Skip",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(width: 50), // Placeholder to balance alignment
+                    TextButton(
+                      onPressed: _goToLogin, // Navigate to the login page when Skip is pressed
+                      child: const Text(
+                        "Skip",
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
 
-              // Centered Content (Text)
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    _onboardingData[_currentIndex]["title"]!,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black, // Black title text
+              // Title and Description
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Column(
+                  children: [
+                    Text(
+                      _onboardingData[_currentIndex]["title"]!,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    _onboardingData[_currentIndex]["description"]!,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.black, // Black description text
+                    const SizedBox(height: 10),
+                    Text(
+                      _onboardingData[_currentIndex]["description"]!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  ],
+                ),
               ),
+              const Spacer(),
 
-              // Bottom Bar (Dots and Next Button)
+              // Bottom Section: Dots and Next Button
               Padding(
                 padding: const EdgeInsets.only(bottom: 30, left: 20, right: 20),
                 child: Row(
@@ -126,7 +131,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     TextButton(
                       onPressed: () {
                         if (_currentIndex == _onboardingData.length - 1) {
-                          _goToHome(); // On the last page, navigate to home
+                          _goToLogin(); // On the last page, navigate to login
                         } else {
                           _controller.nextPage(
                             duration: const Duration(milliseconds: 300),
@@ -136,11 +141,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       child: Text(
                         _currentIndex == _onboardingData.length - 1
-                            ? "Get Started"
-                            : "Next",
+                            ? "Get Started" // When on the last page, show "Get Started"
+                            : "Next", // Otherwise show "Next"
                         style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.black, // Black "Get Started" text
+                          color: Colors.black,
                         ),
                       ),
                     ),

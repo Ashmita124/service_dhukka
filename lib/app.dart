@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:service_dhukka/core/app_theme/app_theme.dart';
 import 'package:service_dhukka/view/dashboard_view.dart';
 import 'package:service_dhukka/view/login_screen_view.dart';
 import 'package:service_dhukka/view/onboarding_screen.dart';
@@ -14,7 +15,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       initialRoute: '/',
-      // theme: getApplicationTheme(),
+      theme: getApplicationTheme(),
       routes: {
         '/': (context) => const SplashScreenView(),
         '/onboarding': (context) => const OnboardingScreen(),

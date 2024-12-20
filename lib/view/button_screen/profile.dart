@@ -25,17 +25,17 @@ class CustomerProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ListTile(
-              leading: const Icon(Icons.person, color: Colors.blue),
+              leading: const Icon(Icons.person, color: Color.fromARGB(255, 236, 121, 247)),
               title: const Text('Name'),
               subtitle: Text(customerName),
             ),
             ListTile(
-              leading: const Icon(Icons.email, color: Colors.blue),
+              leading: const Icon(Icons.email, color: Color.fromARGB(255, 236, 121, 247)),
               title: const Text('Email'),
               subtitle: Text(email),
             ),
             ListTile(
-              leading: const Icon(Icons.phone, color: Colors.blue),
+              leading: const Icon(Icons.phone, color: Color.fromARGB(255, 236, 121, 247)),
               title: const Text('Phone'),
               subtitle: Text(phoneNumber),
             ),

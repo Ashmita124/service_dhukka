@@ -18,22 +18,20 @@ class LoginPage extends StatelessWidget {
                 // Logo
                 Center(
                   child: Image.asset(
-                    'assets/images/img.jpg',
-                    height: 80,
+                    'assets/logo/logo.png',
+                    height: 150,
                   ),
                 ),
                 const SizedBox(height: 20),
                 // Heading Text
                 const Text(
                   "Welcome Back!",
-                 
                 ),
                 const SizedBox(height: 20),
                 // Email Field
                 const TextField(
                   decoration: InputDecoration(
                     labelText: "E-MAIL",
-                   
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -42,7 +40,6 @@ class LoginPage extends StatelessWidget {
                 const TextField(
                   decoration: InputDecoration(
                     labelText: "PASSWORD",
-                    
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
@@ -89,34 +86,32 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                // Social Login Buttons (Facebook, Google)
+                // Social Login Icons (Facebook, Google)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton.icon(
+                    IconButton(
                       onPressed: () {
                         // Add Facebook login functionality
                       },
                       icon: const Icon(Icons.facebook),
-                      label: const Text("Login with Facebook"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                      ),
+                      iconSize: 40, // Set icon size
+                      color: Colors.blue, // Set Facebook icon color
                     ),
-                    const SizedBox(width: 10),
-                    ElevatedButton.icon(
+                    const SizedBox(width: 20),
+                    IconButton(
                       onPressed: () {
                         // Add Google login functionality
                       },
                       icon: const Icon(Icons.g_mobiledata),
-                      label: const Text("Login with Google"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                      ),
+                      iconSize: 40, // Set icon size
+                      color: Color.fromARGB(255, 0, 0, 0), // Google red color // Set Google icon color
                     ),
+                    const SizedBox(width: 10),
+
                   ],
                 ),
-                const SizedBox(height: 50), // Add spacing at the bottom
+                const SizedBox(height: 250), // Add spacing at the bottom
               ],
             ),
           ),

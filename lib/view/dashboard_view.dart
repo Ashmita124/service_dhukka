@@ -27,7 +27,7 @@ class _DashboardState extends State<Dashboard> {
       body: lstBottomScreen[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.amber,
+        // backgroundColor: Colors.amber,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
         currentIndex: _selectedIndex,

@@ -27,7 +27,7 @@ class ServiceHistoryPage extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(
                   Icons.car_repair,
-                  color: Colors.blue,
+                  color: Color.fromARGB(255, 215, 145, 255),
                 ),
                 title: Text(service['service']),
                 subtitle: Text('Date: ${service['date']} \nStatus: ${service['status']}'),
