@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Navigate to the HomeScreen after login
-                    Navigator.pushReplacementNamed(context, '/homepage');
+                    Navigator.pushReplacementNamed(context, '/dashboard');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
