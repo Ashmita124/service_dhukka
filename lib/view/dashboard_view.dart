@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:service_dhukka/view/button_screen/booking.dart';
 import 'package:service_dhukka/view/button_screen/notification.dart';
-import 'package:service_dhukka/view/button_screen/vehicle.dart';
+import 'package:service_dhukka/view/button_screen/profile.dart';
+import 'package:service_dhukka/view/button_screen/service_history.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -15,8 +16,9 @@ class _DashboardState extends State<Dashboard> {
 
   final List<Widget> lstBottomScreen = [
     BookingPage(),
-    VehicleDetailsPage(),
+    ServiceHistoryPage(),
     NotificationsPage(),
+    CustomerProfilePage(),
   ];
 
   @override
@@ -40,16 +42,16 @@ class _DashboardState extends State<Dashboard> {
             label: 'Bookings',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            label: 'Vehicles',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monetization_on),
-            label: 'Revenue',
+            icon: Icon(Icons.car_repair),
+            label: 'Service',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
             label: 'Notifications',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_2_outlined),
+            label: 'My Profile',
           ),
         ],
       ),
