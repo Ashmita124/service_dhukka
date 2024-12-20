@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:service_dhukka/view/button_screen/booking.dart';
 import 'package:service_dhukka/view/button_screen/notification.dart';
+import 'package:service_dhukka/view/button_screen/offer.dart';
 import 'package:service_dhukka/view/button_screen/profile.dart';
 import 'package:service_dhukka/view/button_screen/service_history.dart';
 
@@ -15,7 +16,8 @@ class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
 
   final List<Widget> lstBottomScreen = [
-    BookingPage(),
+    UserBookingPage(),
+    OffersPage(),
     ServiceHistoryPage(),
     NotificationsPage(),
     CustomerProfilePage(),
@@ -37,9 +39,13 @@ class _DashboardState extends State<Dashboard> {
           });
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
             label: 'Bookings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_offer_rounded),
+            label: 'Offers',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.car_repair),
