@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_dhukka/view/button_screen/booking.dart';
+import 'package:service_dhukka/view/button_screen/notification.dart';
 import 'package:service_dhukka/view/button_screen/vehicle.dart';
 
 class Dashboard extends StatefulWidget {
@@ -15,6 +16,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> lstBottomScreen = [
     BookingPage(),
     VehicleDetailsPage(),
+    NotificationsPage(),
   ];
 
   @override
