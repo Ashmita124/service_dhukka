@@ -11,7 +11,7 @@ import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel
 
 class AllVenuesPage extends StatelessWidget {
   const AllVenuesPage({Key? key}) : super(key: key);
-
+// 
   void _confirmDelete(BuildContext context, String venueId) {
     showDialog(
       context: context,
