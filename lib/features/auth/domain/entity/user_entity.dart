@@ -20,7 +20,7 @@ class UserEntity extends Equatable{
     required this.role,
     this.avatar,
   });
-
+// 
   @override
   List<Object?> get props => [
     userId,
