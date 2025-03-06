@@ -21,7 +21,7 @@ class ContactApiModel {
     required this.phone,
     required this.message,
   });
-
+// 
   factory ContactApiModel.fromJson(Map<String, dynamic> json) =>
       _$ContactApiModelFromJson(json);
   Map<String, dynamic> toJson() => _$ContactApiModelToJson(this);
