@@ -14,7 +14,7 @@ ContactApiModel _$ContactApiModelFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as String,
       message: json['message'] as String,
     );
-
+// 
 Map<String, dynamic> _$ContactApiModelToJson(ContactApiModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
