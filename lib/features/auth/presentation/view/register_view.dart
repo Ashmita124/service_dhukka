@@ -22,7 +22,7 @@ class _RegisterViewState extends State<RegisterView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   File? _img;
-
+// 
   checkCameraPermission() async {
     if (await Permission.camera.request().isRestricted ||
         await Permission.camera.request().isDenied) {
