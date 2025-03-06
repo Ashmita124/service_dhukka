@@ -15,7 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final RegisterBloc _registerBloc;
   final HomeCubit _homeCubit;
   final SharedPreferences _prefs;
-
+// 
   LoginBloc({
     required RegisterBloc registerBloc,
     required HomeCubit homeCubit,
