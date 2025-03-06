@@ -8,7 +8,7 @@ import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/conta
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({Key? key}) : super(key: key);
-
+// 
   void _confirmDelete(BuildContext context, String contactId) {
     showDialog(
       context: context,
