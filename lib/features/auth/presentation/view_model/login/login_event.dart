@@ -16,7 +16,7 @@ class NavigateRegisterScreenEvent extends LoginEvent {
     required this.destination,
   });
 }
-
+// 
 class NavigateHomeScreenEvent extends LoginEvent {
   final BuildContext context;
   final Widget destination;
