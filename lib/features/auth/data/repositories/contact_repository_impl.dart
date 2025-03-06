@@ -20,7 +20,7 @@ class ContactRepositoryImpl implements ContactRepository {
     );
     return await remoteDataSource.submitContact(model);
   }
-
+// 
   @override
   Future<List<ContactEntity>> getAllContacts() async {
     final models = await remoteDataSource.getAllContacts();
