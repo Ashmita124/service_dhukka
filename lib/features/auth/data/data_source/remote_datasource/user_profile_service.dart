@@ -16,7 +16,7 @@ class UserProfileService {
     if (token == null) {
       throw Exception("No token found");
     }
-
+// 
     final response = await dio.get(
       "http://10.0.2.2:3000/api/users/me",
       options: Options(
