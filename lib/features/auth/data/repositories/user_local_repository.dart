@@ -22,7 +22,7 @@ class UserLocalRepository implements IUserRepository {
       return Future.value(Left(LocalDatabaseFailure(message: e.toString())));
     }
   }
-
+// 
   @override
   Future<Either<Failure, String>> loginUser(
     String email,
