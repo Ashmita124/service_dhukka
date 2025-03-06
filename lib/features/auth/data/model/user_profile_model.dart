@@ -15,7 +15,7 @@ class UserProfile {
     required this.avatar,
     required this.role,
   });
-
+// 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       username: json['username'] ?? '',
