@@ -24,7 +24,7 @@ class UserHiveModel extends Equatable {
 
   @HiveField(4)
   final String phone;
-
+// 
   @HiveField(5)
   final String address;
 
