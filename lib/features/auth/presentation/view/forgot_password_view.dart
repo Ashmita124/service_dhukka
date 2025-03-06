@@ -110,7 +110,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     ));
   }
 }
-
+// 
 class ValidateLogin {
   static String? fullNameValidate(String? value) {
     if (value == null || value.isEmpty) {
