@@ -2,8 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/core/common/widgets/custom_elevated_button.dart';
+import 'package:hotel_booking/core/common/widgets/custom_text_field.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:service_dhukka/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -13,315 +17,223 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  bool _termsAccepted = false;
-  File? _selectedImage;
-  final ImagePicker _imagePicker = ImagePicker();
+  final _registerViewFormKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  File? _img;
 
-  Future<void> _pickImage(ImageSource source) async {
-    final pickedFile = await _imagePicker.pickImage(source: source);
-
-    if (pickedFile != null) {
-      setState(() {
-        _selectedImage = File(pickedFile.path);
-      });
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
+  checkCameraPermission() async {
+    if (await Permission.camera.request().isRestricted ||
+        await Permission.camera.request().isDenied) {
+      await Permission.camera.request();
     }
   }
 
-  final _gap = const SizedBox(height: 8);
-  final _key = GlobalKey<FormState>();
-  final _fnameController = TextEditingController();
-  final _lnameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  Future _browseImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          _img = File(image.path);
+          context.read<RegisterBloc>().add(
+                LoadImage(file: _img!),
+              );
+        });
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 124, 113, 113),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: BlocBuilder<RegisterBloc, RegisterState>(
-          builder: (context, state) {
-            return Text(
-              'Sign Up',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
-        ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Form(
-              key: _key,
+    return Form(
+      key: _registerViewFormKey,
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        backgroundColor: Colors.grey[300],
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        builder: (context) => Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _pickImage(ImageSource
-                                      .camera); // Pick image from camera
-                                },
-                                icon: const Icon(Icons.camera),
-                                label: const Text('Camera'),
-                              ),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _pickImage(ImageSource
-                                      .gallery); // Pick image from gallery
-                                },
-                                icon: const Icon(Icons.image),
-                                label: const Text('Gallery'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    child: Column(
+                  const SizedBox(height: 20),
+                  // Center(
+                  //   child: Image.asset(
+                  //     'assets/images/logo.png',
+                  //     height: 160,
+                  //   ),
+                  // ),
+
+                  const Text(
+                    'Create Account',
+                    style: TextStyle(
+                      fontSize: 28.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  // const Text(
+                  //   'By creating a free account.',
+                  //   style: TextStyle(
+                  //     fontSize: 14.0,
+                  //     color: Colors.grey,
+                  //   ),
+                  // ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Stack(
                       children: [
-                        SizedBox(
-                          height: 130,
-                          width: 130,
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundImage: _selectedImage != null
-                                ? FileImage(_selectedImage!)
-                                : const AssetImage(
-                                    'assets/images/logo.png',
-                                  ) as ImageProvider,
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              backgroundColor: Colors.grey[300],
+                              context: context,
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(10),
+                                ),
+                              ),
+                              builder: (context) => Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        checkCameraPermission();
+                                        _browseImage(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.camera),
+                                      label: const Text('Camera'),
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        _browseImage(ImageSource.gallery);
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.image),
+                                      label: const Text('Gallery'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey[200],
+                            ),
+                            child: _img != null
+                                ? CircleAvatar(
+                                    backgroundImage: FileImage(_img!),
+                                    radius: 75,
+                                  )
+                                : const CircleAvatar(
+                                    radius: 75,
+                                    backgroundImage:
+                                        AssetImage('assets/images/pro.png'),
+                                  ),
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.blue,
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            child: const Icon(
+                              Icons.camera_alt,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 25),
-                  TextFormField(
-                    controller: _fnameController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'First Name',
-                        prefixIcon: const Icon(Icons.person)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter first name';
-                      }
-                      return null;
-                    }),
+
+                  const SizedBox(height: 30),
+                  CustomTextField(
+                    controller: _nameController,
+                    validator: ValidateLogin.fullNameValidate,
+                    keyboardType: TextInputType.name,
+                    hintText: 'Enter your fullname',
                   ),
-                  _gap,
-                  TextFormField(
-                    controller: _lnameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      labelText: 'Last Name',
-                      prefixIcon: const Icon(Icons.person),
-                    ),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter last name';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'Phone Number',
-                        prefixIcon: const Icon(Icons.phone)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter phone number';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  TextFormField(
+                  const SizedBox(height: 20),
+                  CustomTextField(
                     controller: _emailController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'Email',
-                        prefixIcon: const Icon(Icons.email)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter email';
-                      }
-                      return null;
-                    }),
+                    validator: ValidateLogin.emailValidate,
+                    keyboardType: TextInputType.emailAddress,
+                    hintText: 'Enter your email',
                   ),
-                  _gap,
-                  TextFormField(
+                  const SizedBox(height: 20),
+                  CustomTextField(
                     controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelText: 'Password',
-                        prefixIcon: Icon(Icons.lock)),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter password';
-                      }
-                      return null;
-                    }),
+                    validator: ValidateLogin.passwordValidate,
+                    keyboardType: TextInputType.visiblePassword,
+                    hintText: 'Secured Password',
                   ),
-                  _gap,
-                  TextFormField(
-                    controller: _confirmPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      labelText: 'Confirm Password',
-                      prefixIcon: Icon(Icons.lock),
-                    ),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please confirm password';
-                      }
-                      if (value != _passwordController.text) {
-                        return 'Passwords do not match';
-                      }
-                      return null;
-                    }),
-                  ),
-                  _gap,
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _termsAccepted,
-                        activeColor: Color.fromARGB(255, 160, 83, 177),
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _termsAccepted = value!;
-                          });
-                        },
-                      ),
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'I accept all the ',
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.black),
-                            children: [
-                              TextSpan(
-                                text: 'Terms and Conditions.',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 193, 91, 202),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  _gap,
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (!_termsAccepted) {
+                  const SizedBox(height: 20),
+                  CustomElevatedButton(
+                    text: "Sign Up",
+                    onPressed: () {
+                      if (_registerViewFormKey.currentState!.validate()) {
+                        if (_img == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text(
-                                  'Please accept the Terms and Conditions'),
+                              content: Text('Please select a profile picture'),
                             ),
                           );
                           return;
                         }
-                        if (_key.currentState!.validate()) {
-                          context.read<RegisterBloc>().add(
-                                RegisterCustomer(
-                                  context: context,
-                                  fName: _fnameController.text,
-                                  lName: _lnameController.text,
-                                  phone: _phoneController.text,
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                ),
-                              );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              30), // Set the border radius
-                        ),
-                      ),
+                        final registerState =
+                            context.read<RegisterBloc>().state;
+                        final imageName = registerState.imageName;
+                        context.read<RegisterBloc>().add(
+                              RegisterUserEvent(
+                                context: context,
+                                fullName: _nameController.text.trim(),
+                                email: _emailController.text.trim(),
+                                password: _passwordController.text.trim(),
+                                avatar: imageName,
+                              ),
+                            );
+                        // Clear fields after successful registration
+                        _nameController.clear();
+                        _emailController.clear();
+                        _passwordController.clear();
+                        setState(() {
+                          _img = null;
+                        });
+                      }
+                    },
+                    width: double.infinity,
+                    textColor: Colors.white,
+                    verticalPadding: 18.0,
+                    fontSize: 18.0,
+                  ),
+                  const SizedBox(height: 30),
+                  Align(
+                    alignment: Alignment.center,
+                    child: InkWell(
+                      onTap: () {},
                       child: const Text(
-                        'Sign Up',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        "Already a member? Log in",
+                        style: TextStyle(fontSize: 15.0, color: Colors.red),
                       ),
                     ),
-                  ),
-                  _gap,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text('Already have an account?'),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context); // Navigate to Sign In
-                        },
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 200, 90, 204),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -330,5 +242,34 @@ class _RegisterViewState extends State<RegisterView> {
         ),
       ),
     );
+  }
+}
+
+class ValidateLogin {
+  static String? fullNameValidate(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Full name is required';
+    }
+    if (value.length < 3) {
+      return 'Full name must be at least 3 characters long';
+    }
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(value)) {
+      return 'Full name can only contain letters and spaces';
+    }
+    return null;
+  }
+
+  static String? emailValidate(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email is required';
+    }
+    return null;
+  }
+
+  static String? passwordValidate(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    return null;
   }
 }

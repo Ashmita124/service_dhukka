@@ -1,10 +1,6 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:service_dhukka/app/di/di.dart';
-import 'package:service_dhukka/features/home/presentation/view/bottom_view/dashboard_view.dart';
-import 'package:service_dhukka/features/home/presentation/view_model/home_cubit.dart';
+import 'package:hotel_booking/features/dashboard1/dashboard_view.dart';
 
 
 class HomeState extends Equatable {
@@ -18,23 +14,22 @@ class HomeState extends Equatable {
 
   // Initial state
   static HomeState initial() {
-    return HomeState(
+    return const HomeState(
       selectedIndex: 0,
       views: [
-        BlocProvider(
-          create: (context) => getIt<HomeCubit>(),
+        Center(
           child: DashboardView(),
         ),
-        const Center(
-          child: Text('Wishlist'),
+        Center(
+          child: Text('My Bookings'),
         ),
-        const Center(
-          child: Text('Cart'),
+        Center(
+          child: Text('New Service'),
         ),
-        const Center(
-          child: Text('Inbox'),
+        Center(
+          child: Text('My Vehicles'),
         ),
-        const Center(
+        Center(
           child: Text('Account'),
         ),
       ],

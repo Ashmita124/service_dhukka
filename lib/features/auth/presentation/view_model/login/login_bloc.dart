@@ -1,90 +1,68 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/core/common/snackbar/my_snackbar.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/dashboard_view.dart';
+import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:service_dhukka/core/common/snackbar/my_snackbar.dart';
-import 'package:service_dhukka/features/auth/domain/use_case/login_usecase.dart';
-import 'package:service_dhukka/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:service_dhukka/features/home/presentation/view/home_view.dart';
-import 'package:service_dhukka/features/home/presentation/view_model/home_cubit.dart';
+import './login_state.dart';
 
 part 'login_event.dart';
-part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final RegisterBloc _registerBloc;
   final HomeCubit _homeCubit;
-  final LoginUseCase _loginUseCase;
+  final SharedPreferences _prefs;
 
   LoginBloc({
     required RegisterBloc registerBloc,
     required HomeCubit homeCubit,
-    required LoginUseCase loginUseCase,
+    required SharedPreferences prefs,
   })  : _registerBloc = registerBloc,
         _homeCubit = homeCubit,
-        _loginUseCase = loginUseCase,
+        _prefs = prefs,
         super(LoginState.initial()) {
-    on<NavigateRegisterScreenEvent>(
-      (event, emit) {
-        Navigator.push(
-          event.context,
-          MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(
-              providers: [
-                BlocProvider.value(value: _registerBloc),
-              ],
-              child: event.destination,
-            ),
-          ),
-        );
-      },
-    );
+    on<NavigateRegisterScreenEvent>((event, emit) {
+      Navigator.push(
+        event.context,
+        MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+              value: _registerBloc, child: event.destination),
+        ),
+      );
+    });
 
-    on<NavigateHomeScreenEvent>(
-      (event, emit) {
+    on<LoginUserEvent>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+
+      // Simulate network delay
+      await Future.delayed(const Duration(seconds: 1));
+
+      // Hardcoded credentials for testing
+      if (event.email == "user@test.com" && event.password == "user123") {
+        // User login
+        await _prefs.setString('user_role', 'user');
+        emit(state.copyWith(isLoading: false, isSuccess: true));
+
+        if (!event.context.mounted) return;
         Navigator.pushReplacement(
           event.context,
           MaterialPageRoute(
-            builder: (context) => BlocProvider.value(
-              value: _homeCubit,
-              child: event.destination,
-            ),
+            builder: (context) => DashboardView(),
           ),
         );
-      },
-    );
-
-    on<LoginCustomerEvent>(
-      (event, emit) async {
-        emit(state.copyWith(isLoading: true));
-        final result = await _loginUseCase(
-          LoginParams(
-            email: event.email,
-            password: event.password,
-          ),
+      } else {
+        // Invalid credentials
+        emit(state.copyWith(isLoading: false, isSuccess: false));
+        if (!event.context.mounted) return;
+        showMySnackBar(
+          context: event.context,
+          message: "Invalid credentials. Use user@test.com/user123",
+          color: Colors.red,
         );
-
-        result.fold(
-          (failure) {
-            emit(state.copyWith(isLoading: false, isSuccess: false));
-            showMySnackBar(
-              context: event.context,
-              message: "Invalid Credentials",
-              color: const Color.fromARGB(255, 234, 89, 234),
-            );
-          },
-          (token) {
-            emit(state.copyWith(isLoading: false, isSuccess: true));
-            add(
-              NavigateHomeScreenEvent(
-                context: event.context,
-                destination: HomeView(),
-              ),
-            );
-            //_homeCubit.setToken(token);
-          },
-        );
-      },
-    );
+      }
+    });
   }
 }

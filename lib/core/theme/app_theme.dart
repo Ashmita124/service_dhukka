@@ -1,64 +1,63 @@
-// import 'package:flutter/material.dart';
-
-// ThemeData getApplicationTheme() {
-//   return ThemeData(
-//     primarySwatch: Colors.orange,
-//     scaffoldBackgroundColor: Colors.white,
-//     fontFamily: 'Poppins Bold',
-//     elevatedButtonTheme: ElevatedButtonThemeData(
-//       style: ElevatedButton.styleFrom(
-//         textStyle: const TextStyle(
-//             fontSize: 16,
-//             color: Colors.white,
-//             fontWeight: FontWeight.w500,
-//             fontFamily: 'Poppins Regular'),
-//         backgroundColor: Colors.orange,
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(30),
-//         ),
-//       ),
-//     ),
-//   );
-// }
 import 'package:flutter/material.dart';
-import 'package:service_dhukka/app/constants/theme_constant.dart';
+
+
 class AppTheme {
   AppTheme._();
 
   static getApplicationTheme({required bool isDarkMode}) {
     return ThemeData(
-      // Change app bar color
+      // Base Theme Settings
+      primaryColor: const Color(0xFFE31837), // Automotive red
+      scaffoldBackgroundColor: Colors.white,
+      fontFamily: "Nunito",
+      colorScheme: isDarkMode
+          ? const ColorScheme.dark(
+              primary: Color(0xFFE31837),
+              secondary: Color(0xFF2C3E50),
+            )
+          : const ColorScheme.light(
+              primary: Color(0xFFE31837),
+              secondary: Color(0xFF2C3E50),
+            ),
+      brightness: isDarkMode ? Brightness.dark : Brightness.light,
+      useMaterial3: true,
+
+      // App Bar Theme
       appBarTheme: const AppBarTheme(
         elevation: 0,
-        backgroundColor: ThemeConstant.appBarColor,
+        backgroundColor: Color(0xFFE31837),
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 20,
+          fontFamily: "Nunito",
         ),
       ),
 
-      // Change elevated button theme
+      // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          elevation: 0,
+          backgroundColor: const Color(0xFFE31837),
           foregroundColor: Colors.white,
-          backgroundColor: ThemeConstant.primaryColor,
           textStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            fontFamily: "Nunito",
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
           ),
+          elevation: 0,
         ),
       ),
 
-      // Change text field theme
+      // Input Decoration Theme
       inputDecorationTheme: const InputDecorationTheme(
         contentPadding: EdgeInsets.all(15),
         border: OutlineInputBorder(),
         labelStyle: TextStyle(
           fontSize: 20,
+          fontFamily: "Nunito",
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -67,19 +66,21 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: ThemeConstant.primaryColor,
+            color: Color(0xFFE31837),
           ),
         ),
       ),
-      // Circular progress bar theme
+
+      // Progress Indicator Theme
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: ThemeConstant.primaryColor,
+        color: Color(0xFFE31837),
       ),
-      //Bottom navigation bar theme
+
+      // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
-        selectedItemColor: Color(0xFFFE5404),
-        unselectedItemColor: Colors.black,
+        selectedItemColor: Color(0xFFE31837),
+        unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
       ),

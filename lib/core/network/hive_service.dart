@@ -1,54 +1,44 @@
-
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:hotel_booking/app/constants/hive_table_constant.dart';
+import 'package:hotel_booking/features/auth/data/model/user_hive_model.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:service_dhukka/app/constants/hive_table_constant.dart';
-import 'package:service_dhukka/features/auth/data/model/auth_hive_model.dart';
+
 
 class HiveService {
   Future<void> init() async {
+    // Initialize the database
     var directory = await getApplicationDocumentsDirectory();
-    var path = '${directory.path}hunger_end.db';
+    var path = '${directory.path}sajilobihe_event_venue_booking_system.db';
 
     Hive.init(path);
-    var authHiveModelAdapter = AuthHiveModelAdapter();
-    Hive.registerAdapter(authHiveModelAdapter);
+
+    // Register Adapters
+    Hive.registerAdapter(UserHiveModelAdapter());
   }
 
-  // Auth Queries
-  Future<void> register(AuthHiveModel auth) async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.customerBox);
-    await box.put(auth.customerId, auth);
+  // User Queries
+  Future<void> addUser(UserHiveModel user) async {
+    var box = await Hive.openBox<UserHiveModel>(HiveTableConstant.userBox);
+    await box.put(user.userId, user);
   }
 
-  Future<void> deleteAuth(String id) async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.customerBox);
-    await box.delete(id);
+  Future<List<UserHiveModel>> getAllUsers() async {
+    var box = await Hive.openBox<UserHiveModel>(HiveTableConstant.userBox);
+    var users = box.values.toList();
+    return users;
   }
 
-  Future<List<AuthHiveModel>> getAllAuth() async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.customerBox);
-    return box.values.toList();
+  Future<void> deleteUser(String userId) async {
+    var box = await Hive.openBox<UserHiveModel>(HiveTableConstant.userBox);
+    await box.delete(userId);
   }
 
-  // Login with username and password
-  Future<AuthHiveModel?> login(String email, String password) async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.customerBox);
-    var customer = box.values.firstWhere(
+  // Login using username and password
+  Future<UserHiveModel?> login(String email, String password) async {
+    var box = await Hive.openBox<UserHiveModel>(HiveTableConstant.userBox);
+    var user = box.values.firstWhere(
         (element) => element.email == email && element.password == password);
     box.close();
-    return customer;
-  }
-
-  Future<void> clearAll() async {
-    await Hive.deleteBoxFromDisk(HiveTableConstant.customerBox);
-  }
-
-  // Clear Student Box
-  Future<void> clearCustomerBox() async {
-    await Hive.deleteBoxFromDisk(HiveTableConstant.customerBox);
-  }
-
-  Future<void> close() async {
-    await Hive.close();
+    return user;
   }
 }
