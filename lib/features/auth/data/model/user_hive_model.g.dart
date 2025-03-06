@@ -9,7 +9,7 @@ part of 'user_hive_model.dart';
 class UserHiveModelAdapter extends TypeAdapter<UserHiveModel> {
   @override
   final int typeId = 0;
-
+// 
   @override
   UserHiveModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
