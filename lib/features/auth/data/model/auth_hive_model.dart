@@ -23,7 +23,7 @@ class AuthHiveModel extends Equatable {
   final String email;
   @HiveField(6)
   final String password;
-
+// 
   AuthHiveModel({
     String? customerId,
     required this.fName,
