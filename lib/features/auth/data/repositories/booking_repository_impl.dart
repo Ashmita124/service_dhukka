@@ -24,7 +24,7 @@ class BookingRepositoryImpl implements BookingRepository {
     final models = await remoteDataSource.getUserBookings();
     return models;
   }
-
+// 
   @override
   Future<List<BookingEntity>> getAllBookings() async {
     final models = await remoteDataSource.getAllBookings();
