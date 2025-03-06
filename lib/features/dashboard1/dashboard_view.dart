@@ -22,7 +22,7 @@ class _DashboardViewState extends State<DashboardView> {
     const ContactView(),
     const ProfileView(),
   ];
-
+// 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
