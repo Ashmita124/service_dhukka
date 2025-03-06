@@ -16,7 +16,7 @@ class LoginState extends Equatable {
       isSuccess: false,
     );
   }
-
+// 
   LoginState copyWith({
     bool? isLoading,
     bool? isSuccess,
