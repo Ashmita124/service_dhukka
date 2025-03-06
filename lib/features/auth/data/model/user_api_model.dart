@@ -15,7 +15,7 @@ class UserApiModel extends Equatable {
   final String address;
   final String role;
   final String? avatar;
-
+// 
   const UserApiModel({
     this.userId,
     required this.fullName,
