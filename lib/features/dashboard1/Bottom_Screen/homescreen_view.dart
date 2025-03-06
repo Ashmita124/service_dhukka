@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
+// 
 class _HomeScreenState extends State<HomeScreen> {
   late StreamSubscription<AccelerometerEvent> _accelerometerSubscription;
   final double _shakeThreshold = 15.0; // Adjust threshold as needed
