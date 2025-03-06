@@ -13,7 +13,7 @@ class BookingEntity {
   final List<String>? venueImages;
   final double? venuePrice;    // NEW: Venue price
   final int? venueCapacity;    // NEW: Venue capacity
-
+// 
   BookingEntity({
     required this.id,
     required this.userId,
