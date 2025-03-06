@@ -9,7 +9,7 @@ class VenueEntity extends Equatable {
   final String description;
   final List<String> images;
   final bool available;
-
+// 
   const VenueEntity({
     required this.id,
     required this.name,
